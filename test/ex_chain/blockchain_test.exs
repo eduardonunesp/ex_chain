@@ -2,14 +2,19 @@ defmodule ExChain.BlockchainTest do
   use ExUnit.Case
 
   alias ExChain.{
+    Account,
     Block,
-    Blockchain
+    Blockchain,
+    Transaction,
+    Transaction.TxOut
   }
 
   import ShorterMaps
 
   setup do
+    account = Account.new
     blockchain = Blockchain.new()
+      |> Blockchain.coinbase(account)
       |> Blockchain.difficulty(1)
       |> Blockchain.create_genesis_block
 
@@ -19,6 +24,7 @@ defmodule ExChain.BlockchainTest do
   test "Test blockchain" do
     assert Blockchain.new() == %Blockchain{
       chain: [],
+      accounts: [],
       difficulty: Blockchain.initial_difficulty
     }
   end
@@ -37,12 +43,16 @@ defmodule ExChain.BlockchainTest do
   end
 
   test "Add new block", ~M{blockchain} do
-    blockchain = blockchain
-    |> Blockchain.difficulty(4)
-    |> Blockchain.add_block(Block.new("nops", "0"))
-    |> Blockchain.add_block(Block.new("anops", "0"))
+    account_1 = Account.new
+    account_2 = Account.new
 
-    assert length(blockchain.chain) == 3
+    blockchain = blockchain
+    |> Blockchain.add_account(account_1)
+    |> Blockchain.add_account(account_2)
+    |> Blockchain.difficulty(3)
+    |> Blockchain.add_block(Block.new)
+
+    assert length(blockchain.chain) == 2
   end
 
   test "Check blockchain integrity", ~M{blockchain} do

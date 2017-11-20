@@ -1,5 +1,14 @@
 defmodule ExChain.Block do
-  defstruct [:timestamp, :data, :hash, :calculated_hash, :prev_hash, :difficulty, :nonce]
+  defstruct [
+    :timestamp,
+    :data,
+    :hash,
+    :calculated_hash,
+    :prev_hash,
+    :difficulty,
+    :transactions,
+    :nonce
+  ]
 
   import ShorterMaps
 
@@ -12,6 +21,7 @@ defmodule ExChain.Block do
       prev_hash,
       hash,
       calculated_hash: "0",
+      transactions: [],
       nonce: 0
     }
   end
@@ -67,6 +77,12 @@ defmodule ExChain.Block do
 
   def hash(block, hash) do
     ~M{block | hash}
+  end
+
+  def add_transaction(block, transaction) do
+    ~M{transactions} = block
+    transactions = [transaction|transactions]
+    ~M{block | transactions}
   end
 
   def prev_hash(block, prev_hash) do
