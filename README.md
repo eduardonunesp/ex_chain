@@ -1,6 +1,4 @@
-# ExChain
-
-**TODO: Add description**
+# ExChain [![Build Status](https://semaphoreci.com/api/v1/eduardonunesp/ex_chain/branches/master/badge.svg)](https://semaphoreci.com/eduardonunesp/ex_chain)
 
 ## Installation
 
@@ -15,7 +13,13 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/ex_chain](https://hexdocs.pm/ex_chain).
+## About
 
+ExChain is a initial implementation of a distributed ledger and is based on the bitcoin ledger. The current state is ultra simple, but is open for improvenment. The current consensus algorithm is the proof of work.
+
+### Components 
+- Chain (List)
+- Account
+- Block
+- Transaction
+  - TxIn / TxOut
